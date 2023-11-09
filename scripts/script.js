@@ -8,12 +8,12 @@ const app = document.getElementById('app');
 
 // app.appendChild(header);
 
-function Header()
+function Header({ title })
 {
     return (
         <h1>
-            Develop. Preview. Ship.
-        </h1>
+            {title ? title : "Default title"}
+        </h1>  
     );
 }
 function HomePage() {
