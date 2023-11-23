@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+
 function Header({ title })
 {
     return (
@@ -21,7 +22,7 @@ export default function HomePage() {
 
     return (
       <div>
-        <Header title="Develop. Preview. Ship. 🚀" />
+        {/* <Header title="Develop. Preview. Ship. 🚀" />
         <ul>
             {names.map((name) => 
             (
@@ -29,7 +30,8 @@ export default function HomePage() {
             ))}
         </ul>
   
-        <button onClick={handleClick}>Like</button>
+        <button onClick={handleClick}>Like</button> */}
+
       </div>
     );
   }
