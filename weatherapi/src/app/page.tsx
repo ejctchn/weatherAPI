@@ -1,7 +1,9 @@
 "use client";
 import { useState, useEffect } from 'react';
 import styles from './page.module.css';
+import './globals.css';
 import { getIronSession } from 'iron-session';
+import RegPage from './register';
 
 function getDate()
 {
@@ -16,25 +18,27 @@ export default function Home()
 {
   const date = getDate();
   const [weatherData, setWeatherData] = useState<any>(null);
-  const [city, setCity] = useState("rexburg");
-  let recents: Array<string> = [''];
+  const [city, setCity] = useState("");
+  const [ recents, setRecents ] = useState<any>(null);
 
 
 
 
-  // async function fetchData(cityName: string)
-  // {
-  //   try
-  //   {
-  //     const response = await fetch("http://localhost:3000/api/weather?address=" + cityName);
-  //     const jsonData = (await response.json()).data;
-  //     setWeatherData(jsonData);
-  //   }
-  //   catch(error)
-  //   {
-  //     console.log(error);
-  //   }
-  // }
+  async function fetchData(cityName: string)
+  {
+    try
+    {
+      const response = await fetch("http://localhost:3000/api/weather?address=" + cityName);
+      const jsonData = (await response.json()).data;
+      setWeatherData(jsonData);
+      setRecents(weatherData?.name);
+      console.log(recents);
+    }
+    catch(error)
+    {
+      console.log(error);
+    }
+  }
 
   async function fetchDataByCoord(latitude: number, longitude: number)
   {
@@ -43,7 +47,8 @@ export default function Home()
       const response = await fetch(`http://localhost:3000/api/weather?lat=${latitude}&lon=${longitude}`);
       const jsonData = (await response.json()).data;
       setWeatherData(jsonData);
-      recents += (weatherData?.name);
+      setRecents(weatherData?.name);
+      console.log(recents);
     }
     catch(error)
     {
@@ -52,29 +57,27 @@ export default function Home()
 
   }
 
-  // useEffect(() =>
-  // {
-  //   if("geolocation" in navigator)
-  //   {
-  //     navigator.geolocation.getCurrentPosition((position) => 
-  //     {
-  //       const { latitude, longitude } = position.coords;
-  //       fetchDataByCoord(latitude, longitude);
-  //       recents += (weatherData?.name);
-  //     }, (error) => {console.log(error);}
-  //     )
-  //   }
+  useEffect(() =>
+  {
+    if("geolocation" in navigator)
+    {
+      navigator.geolocation.getCurrentPosition((position) => 
+      {
+        const { latitude, longitude } = position.coords;
+        fetchDataByCoord(latitude, longitude);
+        // recents += (weatherData?.name);
+      }, (error) => {console.log(error);}
+      )
+    }
    
-  //   //fetchData("Rexburg");
-  // }, []);
+    //fetchData("Rexburg");
+  }, []);
 
   return(
     <main className={styles.main}>
-      <nav className={styles.nav}>
-        <h1></h1>
-        <ul>
-        </ul>
-      </nav>
+      <section className={styles.account}>
+        < RegPage />
+      </section>
       <article className={styles.widget}>
         <form  onSubmit={(e) => {e.preventDefault(); fetchData(city);}} className={styles.weatherLocation}>
           <input className={styles.input_field} placeholder='Enter City Name' type='text' id='cityName' name='cityName' onChange={(e) => setCity(e.target.value)} />

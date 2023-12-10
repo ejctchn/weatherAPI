@@ -5,9 +5,45 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.9/css/weather-icons.min.css);
 
 
+.account
+{
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  background-color: rgba(141, 141, 141, 0.9);
+  padding: 1em;
+  border-radius: 1em;
+}
+.account form > *
+{
+  display: block;
+}
+.account button
+{
+  margin: 1em;
+}
+.actBtn
+{
+  color: white;
+  background-color: rgba(0, 0, 0);
+  border-radius: 0.5em;
+  padding: 0.5em;
+  transition: .2s;
+}
+.actBtn:hover
+{
+  transform: scale(1.2);
+}
 .nav
 {
-    background-color: rgba(141, 141, 141, 0.9);
+  position: absolute;
+  left: 5em;
+  top: 10em;
+  background-color: rgba(141, 141, 141, 0.9);
+  cursor: pointer;
+  border-radius: 20px;
+  box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
+  padding: 1em;
 }
 .main 
 {
