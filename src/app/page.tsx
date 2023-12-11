@@ -10,7 +10,7 @@ function getDate()
   const currentDate = new Date();
   const options = { month: "long" };
   const monthName = currentDate.toLocaleString("en-US");
-  const date = new Date().getDate() + ", " + monthName;
+  const date = monthName;
   return date;
 }
 
@@ -90,9 +90,9 @@ export default function Home()
               <div className={styles.icon_and_weatherInfo}>
                 <div className={styles.weatherIcon}>
                   {
-                    weatherData?.weather[0]?.description === "rain" || weatherData?.weather[0]?.description === "fog" ?
+                    weatherData?.weather[0]?.description === "rain" || weatherData?.weather[0]?.description === " heavy rain" || weatherData?.weather[0]?.description === "heavy intensity rain" || weatherData?.weather[0]?.description === "light rain"  ?
                     (
-                      <i className={`wi wi-day-${weatherData?.weather[0]?.description}`}></i>
+                      <i className={`wi wi-day-rain`}></i>
                     ) : (
                       <i className='wi wi-day-cloudy'></i>
                     )
