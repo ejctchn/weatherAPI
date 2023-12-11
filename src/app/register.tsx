@@ -15,10 +15,11 @@ export default function RegPage()
     const handleReg = async(e: any) => 
     {
         e.preventDefault();
+        setError("");
 
-        if(!email || !password)
+        if(!email)
         {
-            setError("All fields are necessary.")
+            setError("Email field is necessary.")
             return;
         }
 
@@ -40,7 +41,7 @@ export default function RegPage()
             const res = await fetch('api/weather/register', {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({email, password,}),
+                body: JSON.stringify({email,}),
             });
             
 
@@ -63,6 +64,7 @@ export default function RegPage()
     const handleLogin = async(e: any) => 
     {
         e.preventDefault();
+        setError("");
 /********************************* 
         Stopped here
  ********************************/ 
@@ -73,29 +75,17 @@ export default function RegPage()
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email }),
             });
-            console.log(res);
+            const { user } = await res.json();
 
-            if(res.ok)
+            if(user)
             {
-                // if(res == null)
-                // {
-                //     console.log("User login Failed.")
-                // }
-                console.log(res);
                 const form = e.currentTarget;
                 setLoggedin("true");
             }
             else
             {
-                console.log("User login Failed.")
+                setError("That email doesn't exist. Please register.")
             }
-            // const res = await signIn('credentials', {email, password, redirect: false,});
-            // loggedin = true;
-            // if(res?.error)
-            // {
-            //     setError("Invalid credentials.");
-            //     return;
-            // }
         } 
         catch (error) 
         {
@@ -106,6 +96,7 @@ export default function RegPage()
     const handleLogout = async(e: any) => 
     {
         setLoggedin("false");
+        setError("");
     }
     
     if(loggedin == "true")
